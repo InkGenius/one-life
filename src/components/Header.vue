@@ -1,7 +1,23 @@
 <template>
   <el-menu theme="light" :router="true" :default-active="defaultActiveIndex" class="top-container" mode="horizontal" >
-    <div class="nva-title">dFight</div>
+    <div class="nva-title">One-Life</div>
     <el-menu-item v-for="(item, index) in items" :key="index" :index="'/'+item.ad" >{{item.name}}</el-menu-item>
+     <div class="nva-right">
+      <el-tooltip class="item" content="Todos" placement="bottom-start">
+        <el-button type="text" icon="circle-check" size="large"></el-button>
+      </el-tooltip>
+      <el-dropdown class="header-user-drop">
+        <span class="el-dropdown-link">
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>DaiSong</el-dropdown-item>
+          <el-dropdown-item>Profile</el-dropdown-item>
+          <el-dropdown-item>Seetings</el-dropdown-item>
+          </el-dropdown-menu>
+      </el-dropdown> 
+      <img width="26" height="26" src="../assets/user.png" class="header-user-avatar">
+    </div> 
   </el-menu>
 </template>
 
@@ -10,9 +26,11 @@
     data () {
       return {
         defaultActiveIndex: '/dashboard',
-        items: [{name: 'dashboard', ad: 'dashboard'},
-        {name: 'friends', ad: 'friends'},
-        {name: 'goal', ad: 'goal'}]
+        items: [{name: 'Dashboard', ad: 'dashboard'},
+        {name: 'Experience', ad: 'experience'},
+        {name: 'Group', ad: 'group'},
+        {name: 'Activity', ad: 'activity'}
+        ]
       }
     }
   }
@@ -52,4 +70,24 @@
     font-size: 20px;
     margin:0px 10px;
   }
+  .nva-right{
+    float:right;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    font-size: 18px;
+    margin:0px 10px;
+  }
+  .header-user-avatar {
+     float: right;  
+    margin-top: 10px;
+    margin-left: 10px; 
+    margin-right: 5px; 
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1); 
+  }
+  .header-user-drop{
+    float: right; 
+  }
+
 </style>
