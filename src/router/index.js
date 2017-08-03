@@ -30,7 +30,7 @@ const Group = resolve => {
 }
 
 // 定义路由
-const routers = [{
+const routes = [{
   path: '/',
   name: 'home',
   component: Dashboard,
@@ -59,7 +59,7 @@ const routers = [{
 
 const router = new Router({
   mode: 'history',
-  routers
+  routes
 })
 
 export default router
