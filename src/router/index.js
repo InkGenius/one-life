@@ -29,6 +29,12 @@ const Group = resolve => {
   })
 }
 
+const ToDo = resolve => {
+  require.ensure(['../views/ToDO.vue'], () => {
+    resolve(require('../views/ToDO.vue'))
+  })
+}
+
 // 定义路由
 const routes = [{
   path: '/',
@@ -55,7 +61,13 @@ const routes = [{
   name: 'activity',
   component: Activity,
   meta: {keepAlive: false}
-}]
+}, {
+  path: '/todos',
+  name: 'todos',
+  component: ToDo,
+  meta: {keepAlive: false}
+}
+]
 
 const router = new Router({
   mode: 'history',

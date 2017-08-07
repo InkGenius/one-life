@@ -4,7 +4,7 @@
     <el-menu-item v-for="(item, index) in items" :key="index" :index="'/'+item.ad" >{{item.name}}</el-menu-item>
      <div class="nva-right">
       <el-tooltip class="item" content="Todos" placement="bottom-start">
-        <el-button type="text" icon="circle-check" size="large"></el-button>
+        <router-link to="/todos"><el-button type="text" icon="circle-check" size="large"></el-button></router-link>
       </el-tooltip>
       <el-dropdown class="header-user-drop">
         <span class="el-dropdown-link">
