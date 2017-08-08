@@ -6,15 +6,15 @@
         <todo></todo>
       </el-tab-pane>
       <el-tab-pane label="Done" name="second">
-        <span slot="label">To do <span class="badge">{{doneNum}}</span> </span>
+        <span slot="label">Done <span class="badge">{{doneNum}}</span> </span>
         <done></done>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-import todo from '../components/TodoComp'
-import done from '../components/DoneComp'
+import todo from '../components/todo/TodoComp'
+import done from '../components/todo/DoneComp'
 export default {
   data () {
     return {
