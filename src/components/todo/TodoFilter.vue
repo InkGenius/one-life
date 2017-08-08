@@ -79,5 +79,7 @@
 <style>
 .filter{
   text-align: left;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
 }
 </style>

@@ -3,29 +3,27 @@
     <el-tabs v-model="activeName">
       <el-tab-pane name="first">
         <span slot="label">To do <span class="badge">{{todoNum}}</span> </span>
-        <todo></todo>
+        <todo-comp type="todo"></todo-comp>
       </el-tab-pane>
       <el-tab-pane label="Done" name="second">
         <span slot="label">Done <span class="badge">{{doneNum}}</span> </span>
-        <done></done>
+        <todo-comp type="done"></todo-comp>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-import todo from '../components/todo/TodoComp'
-import done from '../components/todo/DoneComp'
+import todoComp from '../components/todo/TodoComp'
 export default {
   data () {
     return {
       activeName: 'first',
-      todoNum: 5, // TODO: Dynamic acquisition
-      doneNum: 7
+      todoNum: 3, // TODO: Dynamic acquisition
+      doneNum: 1
     }
   },
   components: {
-    todo,
-    done
+    todoComp
   }
 }
 </script>
