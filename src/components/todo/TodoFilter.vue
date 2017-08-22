@@ -80,13 +80,11 @@
     methods: {
       filter () {
         var res = []
-        console.log(this.typeValue)
         this.$store.state.todoList.forEach(function (element) {
           if ((this.typeValue === '' || (this.typeValue !== '' && this.typeValue === element.type))) {
             res.push(element)
           }
         }, this)
-        console.log(res)
         if (this.type === 'todo') {
           this.$store.commit('todoFilterList', res)
         } else {

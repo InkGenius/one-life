@@ -14,16 +14,37 @@
 </template>
 <script>
 import todoComp from '../components/todo/TodoComp'
+import axios from 'axios'
+
 export default {
   data () {
     return {
-      activeName: 'first',
-      todoNum: 3, // TODO: Dynamic acquisition
-      doneNum: 1
+      activeName: 'first'
     }
   },
   components: {
     todoComp
+  },
+  mounted () {
+    var url = this.$server_host + '/todos/list/'
+    axios.get(url).then((res) => {
+      this.$store.commit('initStatus', res.data)
+    })
+  },
+  computed: {
+    todoNum: {
+      get: function () {
+        return this.$store.state.todoNum
+      },
+      set: function () {}
+    },
+    doneNum: {
+      get: function () {
+        console.log(this.$store.state.doneNum)
+        return this.$store.state.doneNum
+      },
+      set: function () {}
+    }
   }
 }
 </script>

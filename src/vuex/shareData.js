@@ -4,16 +4,18 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    todoList: [{itemContext: '铲土', fromNow: '一天前', type: '工作', done: false},
-        {itemContext: '浇花', fromNow: '一时前', type: '生活', done: false},
-        {itemContext: '打怪', fromNow: '5分钟前', type: '娱乐', done: false},
-        {itemContext: '送花', fromNow: '1年前', type: '娱乐', done: true}],
+    todoNum: 0,
+    doneNum: 0,
+    todoList: [],
+    // 是否经过过滤，false 表示没有过滤，true表示经过过滤
     todoStatus: false,
     doneStatus: false,
+    // 过滤后的数据列表
     todoFilterList: [],
     doneFilterList: []
   },
   mutations: {
+    // 过滤后修改状态，保存过滤数据
     todoFilterList (state, val) {
       state.todoStatus = true
       state.todoFilterList = val
@@ -22,9 +24,18 @@ const store = new Vuex.Store({
       state.doneStatus = true
       state.doneFilterList = val
     },
-    initStatus (state) {
+    // 初始化为没有过滤
+    initStatus (state, data) {
       state.todoStatus = false
       state.doneStatus = false
+      state.doneNum = data.doneNum
+      state.todoNum = data.todoNum
+      state.todoList = data.list
+    },
+    updateList (state, data) {
+      state.doneNum = data.doneNum
+      state.todoNum = data.todoNum
+      state.todoList = data.list
     }
   }
 })

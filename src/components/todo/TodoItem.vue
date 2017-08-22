@@ -1,19 +1,29 @@
 <template>
   <div>
-    <div class="todo"><span>{{itemContext}}</span><span class="mini-font">· {{fromNow}}</span> <span class="mini-font">· {{type}}</span>
-      <div class="pull-right" v-if="!done"><el-button size="mini" type="info" :plain="true">Done</el-button></div>
+    <div class="todo"><span>{{itemData.itemContext}}</span><span class="mini-font">· {{itemData.fromNow}}</span> <span class="mini-font">· {{itemData.type}}</span>
+      <div class="pull-right" v-if="!itemData.done"><el-button size="mini" type="info" :plain="true" @click="handleDone">Done</el-button></div>
     </div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     data () {
       return {
-
       }
     },
-    props: ['itemContext', 'fromNow', 'type', 'done']
+    props: ['itemData'],
+    methods: {
+      handleDone () {
+        var url = this.$server_host + '/todos/done/'
+        axios.post(url, {
+          data: this.itemData.id
+        }).then((res) => {
+          this.$store.commit('updateList', res.data)
+        })
+      }
+    }
   }
 </script>
 
