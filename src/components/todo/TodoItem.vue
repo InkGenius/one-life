@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="todo"><span>{{itemData.itemContext}}</span><span class="mini-font">· {{itemData.fromNow}}</span> <span class="mini-font">· {{itemData.type}}</span>
-      <div class="pull-right" v-if="!itemData.done"><el-button size="mini" type="info" :plain="true" @click="handleDone">Done</el-button></div>
+    <div class="todo"><span>{{itemData.context}}</span><span class="mini-font">· {{itemData.public_time}}</span> <span class="mini-font">· {{itemData.type}}</span>
+      <div class="pull-right" v-if="itemData.status === 0"><el-button size="mini" type="info" :plain="true" @click="handleDone">Done</el-button></div>
     </div>
   </div>
 </template>

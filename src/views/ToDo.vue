@@ -26,7 +26,7 @@ export default {
     todoComp
   },
   mounted () {
-    var url = this.$server_host + '/todos/list/'
+    var url = this.$server_host + '/todos/list'
     axios.get(url).then((res) => {
       this.$store.commit('initStatus', res.data)
     })

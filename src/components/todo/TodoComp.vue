@@ -1,8 +1,8 @@
 <template>
   <div>
     <todo-filter :type='type'></todo-filter>
-    <todo-item v-for="item in todoList" v-if="type === 'todo' && !item.done" :itemData="item" :key="item.id"></todo-item>
-    <todo-item v-for="item in todoList" v-if="type === 'done' && item.done" :itemData="item" :key="item.id"></todo-item>
+    <todo-item v-for="item in todoList" v-if="type === 'todo' && item.status === 0" :itemData="item" :key="item.id"></todo-item>
+    <todo-item v-for="item in todoList" v-if="type === 'done' && item.status === 1" :itemData="item" :key="item.id"></todo-item>
   </div>
 </template>
 
@@ -38,6 +38,7 @@
               res = this.$store.state.todoList
             }
           }
+          console.log(res)
           return res
         },
         set: function () {}
