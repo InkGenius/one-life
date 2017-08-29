@@ -8,6 +8,8 @@
 
 <script>
   import axios from 'axios'
+  import moment from 'moment'
+  moment.locale('zh-cn')
   export default {
     data () {
       return {
@@ -23,6 +25,9 @@
           this.$store.commit('updateList', res.data)
         })
       }
+    },
+    mounted () {
+      this.itemData.public_time = moment(this.itemData.public_time, 'YYYYMMDDHHmm').fromNow()
     }
   }
 </script>
