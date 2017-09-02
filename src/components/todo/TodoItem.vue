@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="todo"><span>{{itemData.context}}</span><span class="mini-font">· {{itemData.createdAt}}</span> <span class="mini-font">· {{todoType}}</span>
-      <div class="pull-right" v-if="!itemData.status"><el-button size="mini" type="info" :plain="true" @click="handleDone">Done</el-button></div>
+      <div class="pull-right" >
+        <el-button v-if="!itemData.status" size="mini" type="info" :plain="true" @click="handleDone">Done</el-button>
+        <el-button size="mini" type="danger" @click="handleDelete">delete</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -23,8 +26,32 @@
         axios.post(url, {
           data: this.itemData.id
         }).then((res) => {
-          console.log(res.data)
           this.$store.commit('updateList', res.data)
+        })
+      },
+      handleDelete () {
+        this.$confirm('确定删除吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var url = this.$server_host + '/todos/delete'
+          axios.post(url, {
+            data: this.itemData.id
+          }).then((res) => {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+            this.$store.commit('updateList', res.data)
+          }).catch(function (error) {
+            console.log(error)
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
         })
       }
     },
