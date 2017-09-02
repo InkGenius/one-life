@@ -104,7 +104,7 @@
       filter () {
         var res = []
         this.$store.state.todoList.forEach(function (element) {
-          if ((this.typeValue === '' || (this.typeValue !== '' && this.typeValue === element.type))) {
+          if ((this.typeValue === '' || (this.typeValue !== '' && this.typeValue === element.typeId))) {
             res.push(element)
           }
         }, this)
