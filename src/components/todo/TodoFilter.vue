@@ -10,7 +10,7 @@
     </el-select>
     <el-select v-model="typeValue" filterable clearable placeholder="Type" @change="filter">
       <el-option
-        v-for="item in typeOptions"
+        v-for="item in this.$store.state.typeOptions"
         :key="item.value"
         :label="item.label"
         :value="item.value">
@@ -40,7 +40,7 @@
         </el-form-item>
         <el-form-item label="类别" prop="type">
           <el-select v-model="form.type" placeholder="请选择待办类别">
-            <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value">
+            <el-option v-for="item in this.$store.state.typeOptions" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
           </el-select>
         </el-form-item>
@@ -69,16 +69,6 @@
           label: '研究生'
         }],
         typeValue: '',
-        typeOptions: [{
-          value: '2',
-          label: '生活'
-        }, {
-          value: '1',
-          label: '工作'
-        }, {
-          value: '3',
-          label: '娱乐'
-        }],
         timeValue: '',
         timeOptions: [{
           value: '选项1',
@@ -131,6 +121,7 @@
               data: this.form
             }).then((res) => {
               this.$store.commit('updateList', res.data)
+              console.log(res.data)
               this.$message({
                 message: '保存成功',
                 type: 'success'
@@ -148,6 +139,16 @@
       },
       resetForm (formName) {
         this.$refs[formName].resetFields()
+      }
+    },
+    watch: {
+      dialogVisible: {
+        handler: function (val, oldval) {
+          // 第一次触发时表单对象还没创建
+          if (this.$refs['form']) {
+            this.$refs['form'].resetFields()
+          }
+        }
       }
     }
   }

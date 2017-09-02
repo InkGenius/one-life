@@ -12,7 +12,17 @@ const store = new Vuex.Store({
     doneStatus: false,
     // 过滤后的数据列表
     todoFilterList: [],
-    doneFilterList: []
+    doneFilterList: [],
+    typeOptions: [{
+      value: '1',
+      label: '工作'
+    }, {
+      value: '2',
+      label: '生活'
+    }, {
+      value: '3',
+      label: '娱乐'
+    }]
   },
   mutations: {
     // 过滤后修改状态，保存过滤数据

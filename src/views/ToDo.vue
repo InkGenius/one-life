@@ -40,7 +40,6 @@ export default {
     },
     doneNum: {
       get: function () {
-        console.log(this.$store.state.doneNum)
         return this.$store.state.doneNum
       },
       set: function () {}

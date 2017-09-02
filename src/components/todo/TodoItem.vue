@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="todo"><span>{{itemData.context}}</span><span class="mini-font">· {{itemData.public_time}}</span> <span class="mini-font">· {{itemData.type}}</span>
-      <div class="pull-right" v-if="itemData.status === 0"><el-button size="mini" type="info" :plain="true" @click="handleDone">Done</el-button></div>
+    <div class="todo"><span>{{itemData.context}}</span><span class="mini-font">· {{itemData.createdAt}}</span> <span class="mini-font">· {{todoType}}</span>
+      <div class="pull-right" v-if="!itemData.status"><el-button size="mini" type="info" :plain="true" @click="handleDone">Done</el-button></div>
     </div>
   </div>
 </template>
@@ -13,6 +13,7 @@
   export default {
     data () {
       return {
+        todoType: {}
       }
     },
     props: ['itemData'],
@@ -27,7 +28,8 @@
       }
     },
     mounted () {
-      this.itemData.public_time = moment(this.itemData.public_time, 'YYYYMMDDHHmm').fromNow()
+      this.itemData.createdAt = moment(this.itemData.createdAt).fromNow()
+      this.todoType = this.$store.state.typeOptions[this.itemData.typeId - 1].label
     }
   }
 </script>
