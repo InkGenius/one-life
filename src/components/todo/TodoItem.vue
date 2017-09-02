@@ -23,12 +23,12 @@
         axios.post(url, {
           data: this.itemData.id
         }).then((res) => {
+          console.log(res.data)
           this.$store.commit('updateList', res.data)
         })
       }
     },
     mounted () {
-      this.itemData.createdAt = moment(this.itemData.createdAt).fromNow()
       this.todoType = this.$store.state.typeOptions[this.itemData.typeId - 1].label
     }
   }
