@@ -17,7 +17,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="content-re-content" v-if="x.retweeted_status">
+            <!-- <div class="content-re-content" v-if="x.retweeted_status">
                 <span class="re-content-text" v-html="formatContent( '@' + x.retweeted_status.user.name + ': '
                     + x.retweeted_status.text)"></span>
                 <div  class="content-img" v-if="x.retweeted_status.pic_urls">
@@ -28,7 +28,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="list-footer">
             <div class="footer-tag">

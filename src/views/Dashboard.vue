@@ -1,5 +1,6 @@
 <template lang="html">
     <div class="home" id="home">
+        <send-post></send-post>
         <div class="list"  v-for="x in list">
             <pcontent :x="x"></pcontent>
         </div>
@@ -7,11 +8,12 @@
             <spinner :size="'45px'" :color="'#007AFF'"></spinner>
         </div>
     </div>
-</template>
+</template>               
  
 <script>
 // import { mapActions, mapGetters } from 'vuex'
 import pcontent from '../components/dashboard/Content'
+import sendPost from '../components/dashboard/SendPost'
 import axios from 'axios'
 export default {
   name: 'home',
@@ -24,7 +26,8 @@ export default {
     }
   },
   components: {
-    pcontent
+    pcontent,
+    sendPost
   },
   computed: {
     // ...mapGetters({
