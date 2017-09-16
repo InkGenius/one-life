@@ -83,30 +83,36 @@ export default {
       var div = this.$refs.sendText
       if (!self.dataUrl) return
       self.dataText = div.innerHTML
-      var reader = new FileReader()
-      reader.readAsBinaryString(self.file)
-      reader.onloadend = function () {
-        self.pic = this.result
-        let form = new FormData()
-        form.append('pic', self.pic)
-        form.append('context', self.dataText)
-        var config = {
-          method: 'post',
-          url: '/record/add',
-          baseURL: 'http://localhost:3001',
-          data: form,
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+      // var reader = new FileReader()
+      // reader.readAsBinaryString(self.file)
+      // reader.onloadend = function () {
+      // }
+      self.pic = this.result
+      let inputDOM = this.$refs.inputer
+      // 通过DOM取文件数据
+      this.file = inputDOM.files[0]
+      let form = new FormData()
+      form.append('recordpic', this.file)
+      form.append('context', self.dataText)
+      form.append('userid', 'simulation')
+      form.append('experienceid', 'simulation')
+      form.append('mood', 10)
+      var config = {
+        method: 'post',
+        url: '/record/add',
+        baseURL: 'http://localhost:3001',
+        data: form,
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-        axios(config).then(function (response) {
-          if (response.status === 200) {
-            self.goBack()
-          }
-        }).catch(function (error) {
-          alert('发送失败，请稍后尝试' + error)
-        })
       }
+      axios(config).then(function (response) {
+        if (response.status === 200) {
+          self.goBack()
+        }
+      }).catch(function (error) {
+        alert('发送失败，请稍后尝试' + error)
+      })
     },
     closeImage () {
       this.imgPreview(null)

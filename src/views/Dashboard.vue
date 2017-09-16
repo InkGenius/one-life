@@ -59,8 +59,9 @@ export default {
     this.homeTimeline(1)
   },
   mounted () {
-    axios.get('/static/test.json').then((res) => {
-      console.log(res)
+    let url = 'http://localhost:3001/record/list'
+    axios.get(url).then((res) => {
+      console.log(JSON.stringify(res.data))
       this.list = res.data
     })
   },
