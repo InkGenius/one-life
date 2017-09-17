@@ -22,9 +22,17 @@ const store = new Vuex.Store({
     }, {
       value: '3',
       label: '娱乐'
-    }]
+    }],
+    recordList: [],
+    currentUser: {}
   },
   mutations: {
+    setCurrentUser (state, val) {
+      state.currentUser = val
+    },
+    updateRecordList (state, val) {
+      state.recordList = val
+    },
     // 过滤后修改状态，保存过滤数据
     todoFilterList (state, val) {
       state.todoStatus = true

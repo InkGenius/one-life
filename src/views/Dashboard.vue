@@ -1,8 +1,8 @@
 <template lang="html">
     <div class="home" id="home">
-        <send-post></send-post>
-        <div class="list"  v-for="x in list">
-            <pcontent :x="x"></pcontent>
+        <send-post :currentUser="getCurrentUser()"></send-post>
+        <div class="list"  v-for="record in getRecordList()">
+            <pcontent :record="record"></pcontent>
         </div>
         <div class="refresh-footer" v-if="option.refresh">
             <spinner :size="'45px'" :color="'#007AFF'"></spinner>
@@ -59,10 +59,17 @@ export default {
     this.homeTimeline(1)
   },
   mounted () {
-    let url = 'http://localhost:3001/record/list'
-    axios.get(url).then((res) => {
-      console.log(JSON.stringify(res.data))
-      this.list = res.data
+    let userUrl = 'http://localhost:3001/user/currentUser'
+    axios.get(userUrl).then((res) => {
+      console.log(res.data)
+      this.$store.commit('setCurrentUser', res.data)
+      // this.list = res.data
+    })
+    // TODO: 获取记录未与用户信息关联，现为单用户
+    let listUrl = 'http://localhost:3001/record/list'
+    axios.get(listUrl).then((res) => {
+      this.$store.commit('updateRecordList', res.data)
+      // this.list = res.data
     })
   },
   activated () {
@@ -72,6 +79,12 @@ export default {
     window.removeEventListener('scroll', this.scrollBar)
   },
   methods: {
+    getRecordList: function () {
+      return this.$store.state.recordList
+    },
+    getCurrentUser: function () {
+      return this.$store.state.currentUser
+    },
     // ...mapActions([
     //   'getHomeTimeline'
     // ]),

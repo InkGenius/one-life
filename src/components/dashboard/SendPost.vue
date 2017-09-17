@@ -7,12 +7,15 @@
             <!-- <div class="post-send">
                 <span class="send-text" @click="sendText">发送</span>
             </div> -->
-            <el-button size="mini" type="danger" @click="sendText">发送</el-button>
+            <div class="post-send">
+                <el-button size="mini"  @click="sendText">发送</el-button>
+            </div>
+            
         </div>
         <div class="post-user">
             <div class="user-avatar">
-                <img  class="header-avatar" v-if="userInfo" :src="userInfo.avatar_large">
-                <span class="header-name">{{userInfo.name}}</span>
+                <img  class="header-avatar" v-if="currentUser" :src="currentUser.avatar">
+                <span class="header-name">{{currentUser.name}}</span>
             </div>
         </div>
         <div class="post-status">
@@ -38,19 +41,20 @@
 import axios from 'axios'
 export default {
   name: 'component_name',
+  props: ['currentUser'],
   data () {
     return {
       dataText: '',
       dataUrl: '',
       pic: null,
       file: null,
-      fileName: '',
-      userInfo: {name: 'daisong', avatar_large: 'http://tva1.sinaimg.cn/crop.20.22.264.264.180/006be6IBjw8ez79xvdn9mj30b408cwex.jpg'}
+      fileName: ''
+    //   currentUser: {name: 'daisong', avatar_large: 'http://tva1.sinaimg.cn/crop.20.22.264.264.180/006be6IBjw8ez79xvdn9mj30b408cwex.jpg'}
     }
   },
   computed: {
     // ...mapGetters({
-    //   userInfo: 'userInfo'
+    //   currentUser: 'currentUser'
     // })
   },
   activated () {
@@ -108,7 +112,11 @@ export default {
       }
       axios(config).then(function (response) {
         if (response.status === 200) {
-          self.goBack()
+        //   self.goBack()
+          div.innerHTML = ''
+          console.log(self.$refs.inputer)
+          self.dataUrl = ''
+          self.$store.commit('updateRecordList', response.data)
         }
       }).catch(function (error) {
         alert('发送失败，请稍后尝试' + error)
@@ -145,6 +153,7 @@ export default {
       this.imgPreview(this.file)
     },
     goBack () {
+      console.log(this.$router)
       this.$router.go(-1)
     }
   }
@@ -184,6 +193,7 @@ export default {
     width: 4rem;
     height: 100%;
     margin-right: 1rem;
+    margin-top: 1rem;
     opacity: .7;
 }
 
