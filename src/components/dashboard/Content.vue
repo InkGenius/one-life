@@ -9,6 +9,7 @@
             <span class="user-time" >{{formatTime(record.createdAt)}}</span>
         </div>
         <div class="list-content">
+             <span class="mood-content-text">#{{transformMood(record.mood)}}#</span>
             <span class="content-text" v-html="formatContent(record.context)"></span>
             <div  class="content-img">
                 <ul  class="content-img-ul clear-fix">
@@ -41,7 +42,7 @@
             </div>   -->
             <div class="footer-tag">
                 <svg class="" viewBox="0 0 54 72" style="display: inline-block; fill: currentcolor; height: 1.25rem; max-width: 100%; position: relative; user-select: none; vertical-align: text-bottom;"><g><path d="M38.723 12c-7.187 0-11.16 7.306-11.723 8.131C26.437 19.306 22.504 12 15.277 12 8.791 12 3.533 18.163 3.533 24.647 3.533 39.964 21.891 55.907 27 56c5.109-.093 23.467-16.036 23.467-31.353C50.467 18.163 45.209 12 38.723 12z"></path></g></svg>
-                <span class="tag-style">{{formatNum(record.mood)}}</span>
+                <span class="tag-style">{{transformMood(record.mood)}}</span>
             </div>      
         </div>
     </div>
@@ -58,11 +59,16 @@ export default {
     return {
     }
   },
+  computed: {
+  },
   methods: {
     ...mapActions([
       'setImageZoom',
       'setDetailContent'
     ]),
+    transformMood (index) {
+      return this.$store.state.moodRate[index - 1]
+    },
     goDetailContent () {
     //   this.setDetailContent(this.record)
     //   this.$router.push({name: 'detail-content'})
@@ -189,7 +195,11 @@ a {
     font-size: 1.3rem;
     line-height: 1rem;
 }
-
+.mood-content-text {
+    font-size: 1.4rem;
+    line-height: 1rem;
+    color: #007AFF;
+}
 .content .list-content .content-at {
     color: #007AFF;
 }

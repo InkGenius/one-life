@@ -21,6 +21,19 @@
         <div class="post-status">
            <div contenteditable="true" ref="sendText" placeholder="有什么新鲜事？" class="status-text"></div>
         </div>
+        <div class="post-mood">
+            <div class="mood-desc">心情评分：</div>
+            <el-rate v-model="rateValue" :icon-classes="['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3']"
+                void-icon-class="icon-rate-face-off" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
+                show-text
+                :max='10'
+                :low-threshold='5'
+                :high-threshold='8'
+                :texts="getMoodRate"
+                >
+            </el-rate>
+        </div>
+        
         <div class="status-image">
             <div class="image-select">
                 <a href="javascript:" class="icon" style="opacity:0" ><input type="file" @change="imageChange" ref="inputer" accept="image/*" ></input></a>
@@ -28,7 +41,8 @@
             <div class="image-img">
                 <img v-if="dataUrl" class="img" :src="dataUrl">
                 <div v-if="dataUrl" v-on:click="closeImage" class="image-close">
-                    <svg class="close-icon" viewBox="0 0 46 72" style="display: inline-block; fill: currentcolor; position: relative; user-select: none; vertical-align: text-bottom;"><g><path d="M27.243 36l14.879-14.879a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23 31.758 8.122 16.879a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242L18.758 36 3.879 50.879A2.998 2.998 0 0 0 6.001 56a2.99 2.99 0 0 0 2.121-.879L23 40.242l14.879 14.879A2.991 2.991 0 0 0 40 56a2.998 2.998 0 0 0 2.121-5.121L27.243 36z"></path></g></svg>
+                    <svg class="close-icon" viewBox="0 0 46 72" style="display: inline-block; fill: currentcolor; position: relative; user-select: none; vertical-align: text-bottom;">
+                        <g><path d="M27.243 36l14.879-14.879a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23 31.758 8.122 16.879a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242L18.758 36 3.879 50.879A2.998 2.998 0 0 0 6.001 56a2.99 2.99 0 0 0 2.121-.879L23 40.242l14.879 14.879A2.991 2.991 0 0 0 40 56a2.998 2.998 0 0 0 2.121-5.121L27.243 36z"></path></g></svg>
                 </div>
             </div>
         </div>
@@ -48,14 +62,18 @@ export default {
       dataUrl: '',
       pic: null,
       file: null,
-      fileName: ''
-    //   currentUser: {name: 'daisong', avatar_large: 'http://tva1.sinaimg.cn/crop.20.22.264.264.180/006be6IBjw8ez79xvdn9mj30b408cwex.jpg'}
+      fileName: '',
+      rateValue: null
+    //   moodRate: ['绝望', '痛苦', '悲伤', '消沉', '低落', '平稳', '开心', '兴奋', '难忘', '可遇不可求']
     }
   },
   computed: {
     // ...mapGetters({
     //   currentUser: 'currentUser'
     // })
+    getMoodRate: function () {
+      return this.$store.state.moodRate
+    }
   },
   activated () {
     var div = this.$refs.sendText
@@ -100,7 +118,7 @@ export default {
       form.append('context', self.dataText)
       form.append('userid', 'simulation')
       form.append('experienceid', 'simulation')
-      form.append('mood', 10)
+      form.append('mood', this.rateValue)
       var config = {
         method: 'post',
         url: '/record/add',
@@ -114,8 +132,8 @@ export default {
         if (response.status === 200) {
         //   self.goBack()
           div.innerHTML = ''
-          console.log(self.$refs.inputer)
           self.dataUrl = ''
+          self.rateValue = null
           self.$store.commit('updateRecordList', response.data)
         }
       }).catch(function (error) {
@@ -161,6 +179,8 @@ export default {
 </script>
  
 <style lang="css">
+@import '../../assets/rateFont.css';
+
 .post {
     background-color: #ffffff;
     width: 100%;
@@ -235,6 +255,15 @@ export default {
     margin-left: 1rem;
 }
 
+.post-mood {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+
+.post-mood .mood-desc {
+    margin-bottom:0.5rem;
+    font-size:10pt;
+}
 .post-status {
     width: 100%;
     min-height: 5rem;

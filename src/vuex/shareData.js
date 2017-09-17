@@ -24,7 +24,8 @@ const store = new Vuex.Store({
       label: '娱乐'
     }],
     recordList: [],
-    currentUser: {}
+    currentUser: {},
+    moodRate: ['绝望', '痛苦', '悲伤', '消沉', '低落', '平稳', '开心', '兴奋', '难忘', '可遇不可求']
   },
   mutations: {
     setCurrentUser (state, val) {
